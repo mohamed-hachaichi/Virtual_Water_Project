@@ -12,7 +12,7 @@ colorvalues = c('#4E5166','#7C90A0', '#B5AA9D', '#B9B7A7','#747274',
 
 -----------------------------
 # read the data 
-ds <- read_csv('../Output/ds.csv')
+ds <- read_csv('Virtual_Water_Project/Output/ds.csv')
 
 ds <- ds %>% filter(!City %in% c('Colombo', 'Gampaha',
                                  'Kalutara', 'Trincomalee',
