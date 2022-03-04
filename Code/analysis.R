@@ -2,17 +2,19 @@ library(tidyverse)
 library(glue)
 library(ggtext)
 library(showtext)
+library(ggstatsplot)
 
 setwd('Users/Mohamed/Documents/Virtual_Water_Project')
 
 
-colorvalues = c('#4E5166','#7C90A0', '#B5AA9D', '#B9B7A7','#747274', 
-               '#C1292E', '#FB3640','#512500', '#512500','#874000',
-               '#F5CB5C','#242423')
+colorvalues = c('#011627','#3F172B', '#7C172E', '#5DD39E','#9C8185', 
+               '#41EAD4', '#9FF5E8','#F71735', '#FF9F1C','#E5E5E5')
 
 -----------------------------
 # read the data 
-ds <- read_csv('Virtual_Water_Project/Output/ds.csv')
+ds <- read_csv('../Output/ds.csv')
+
+class <- read_csv('../Data/index.csv')
 
 ds <- ds %>% filter(!City %in% c('Colombo', 'Gampaha',
                                  'Kalutara', 'Trincomalee',
@@ -42,6 +44,128 @@ one <- merge(B, G, by = 'City') %>%
                                 percent_Grey - 27)) %>%
   mutate_if(is.numeric, round)
   
+
+### figure 1
+
+b <- ds %>% 
+  filter(Type == "Bleu water") %>%
+  group_by(City) %>% 
+  summarise(value = sum(value)) %>%
+  arrange(desc(value)) %>%
+  mutate(type = 'Blue water')
+
+g <- ds %>% 
+  filter( Type == "Grey water") %>%
+  group_by(City) %>%
+  summarise(value = sum(value)) %>%
+  mutate(type = 'Grey water')
+
+d <- rbind(g, b)
+
+d <- merge(d, class, by = 'City')
+
+## for reproducibility
+set.seed(123)
+
+## plot
+
+ggbetweenstats(
+  data  = d,
+  x     = type,
+  y     = value,
+  type = "p",
+  conf.level = 0.99,
+  package = "ggsci",
+  palette = "nrc_npg",
+  xlab = '',
+  ylab = 'Virtual water (Liters/year)',
+  title = "Distribution of water footprint across Middle-Income Countries (MICs)",
+  outlier.tagging = TRUE,
+  outlier.label = City,
+)
+
+ggsave('../Figures/Figure_01.png', dpi = 350, height = 12, width = 18, units = 'cm')
+
+p1 <- ggbetweenstats(
+  data  = d %>% filter(type == "Grey water"),
+  x     = Category,
+  y     = value,
+  type = "p",
+  conf.level = 0.99,
+  package = "ggsci",
+  palette = "nrc_npg",
+  xlab = '',
+  ylab = 'Grey virtual water (Liters/year)',
+  title = "Distribution of grey water footprint across MICs",
+  outlier.tagging = TRUE,
+  outlier.label = City,
+)
+
+p2 <- ggbetweenstats(
+  data  = d %>% filter(type == "Blue water"),
+  x     = Category,
+  y     = value,
+  type = "p",
+  conf.level = 0.99,
+  package = "ggsci",
+  palette = "nrc_npg",
+  xlab = '',
+  ylab = 'Blue virtual water (Liters/year)',
+  title = "Distribution of blue water footprint across MICs",
+  outlier.tagging = TRUE,
+  outlier.label = City
+)
+
+
+p3 <- ggbetweenstats(
+  data  = d %>% filter(type == "Grey water"),
+  x     = Continent,
+  y     = value,
+  type = "p",
+  conf.level = 0.99,
+  package = "ggsci",
+  palette = "nrc_npg",
+  xlab = 'Type of water footprint',
+  ylab = 'Virtual water (Liters/year)',
+  title = "Distribution of Grey water footprint across MICs"
+)
+
+p4 <- ggbetweenstats(
+  data  = d %>% filter(type == "Blue water"),
+  x     = Continent,
+  y     = value,
+  type = "p",
+  conf.level = 0.99,
+  package = "ggsci",
+  palette = "nrc_npg",
+  xlab = 'Type of water footprint',
+  ylab = 'Virtual water (Liters/year)',
+  title = "Distribution of Blue water footprint across MICs"
+)
+
+## combining the individual plots into a single plot
+combine_plots(
+  list(p1, p2),
+  plotgrid.args = list(nrow = 1),
+  annotation.args = list(
+    title = "Comparison of Grey and Blue water footprints"
+  )
+)
+
+ggsave('../Figures/Figure_02.png', dpi = 350, height = 12, width = 28, units = 'cm')
+
+
+### through continents 
+
+combine_plots(
+  list(p3, p4),
+  plotgrid.args = list(nrow = 2),
+  annotation.args = list(
+    title = "Comparison of Grey and Blue water footprints"
+  )
+)
+
+ggsave('../Figures/Figure_03.png', dpi = 350, height = 30, width = 16, units = 'cm')
 
 
 # make the plot 
@@ -92,7 +216,7 @@ ds %>%
   facet_grid(~Type, scale = 'free') +
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(face="bold", margin= margin(b=20)),
+    plot.title = element_text(face="bold", margin= margin(b=0)),
     plot.caption = element_markdown(hjust=0, color="darkgray"),
     plot.caption.position = "plot",
     panel.background = element_blank(),
@@ -100,10 +224,72 @@ ds %>%
     axis.text.x = element_text(color="darkgray"),
     panel.grid.major.x = element_line(color="gray", size=0.1),
     panel.grid.major.y = element_line(color="gray", size=0.1, linetype="dotted")
-  )
+  ) + scale_fill_manual(values = colorvalues)
   
 ggsave("../Figures/fig_02.tiff", width=10, height=6)
  
+
+--------------------------------------------
+
+ds <- merge(ds, class, by = 'City')  
+    
+ds %>%
+  group_by(Sector,Type, Category) %>%
+  summarise(value = sum(value)) %>%
+  ggplot(aes(x= Type, y = value, fill = Sector)) +
+  labs(x = '', y = '') +
+  geom_bar(stat = 'identity', position = 'fill') +
+  facet_grid(~Category) + 
+  coord_flip() +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_blank(),
+    plot.title.position = "plot",
+    plot.title = element_text(face="bold", margin= margin(b=5)),
+    plot.caption = element_markdown(hjust=0, color="darkgray"),
+    plot.caption.position = "plot",
+    panel.background = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(color="darkgray"),
+    panel.grid.major.x = element_line(color="gray", size=0.1),
+    panel.grid.major.y = element_line(color="gray", size=0.1, linetype="dotted")
+  ) + scale_fill_manual(values = colorvalues)
+
+
+ggsave("../Figures/figure_05.tiff", width=10, height=6)
+
+
+
+-------------------------------------------
+  
+ds %>%
+  group_by(Sector,Type, Category, Continent) %>%
+  summarise(value = sum(value)) %>%
+  ggplot(aes(x= Type, y = value, fill = Sector)) +
+  labs(x = '', y = '') +
+  geom_bar(stat = 'identity', position = 'fill') +
+  facet_grid(~Continent) + 
+  coord_flip() +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_blank(),
+    plot.title.position = "plot",
+    plot.title = element_text(face="bold", margin= margin(b=5)),
+    plot.caption = element_markdown(hjust=0, color="darkgray"),
+    plot.caption.position = "plot",
+    panel.background = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(color="darkgray"),
+    panel.grid.major.x = element_line(color="gray", size=0.1),
+    panel.grid.major.y = element_line(color="gray", size=0.1, linetype="dotted")
+  ) + scale_fill_manual(values = colorvalues)
+
+
+ggsave("../Figures/figure_06.tiff", width=10, height=6)
+
+
+
+
 -----------------------------------
   
 ds %>%
@@ -113,14 +299,13 @@ ds %>%
   geom_bar(stat = 'identity', position = 'fill') +
   coord_flip() + 
   labs(x=NULL, y=NULL,
-       title="Global Southern cities virtual water decomposition", subtitle = 'Average (%) - Liters per capita/year',
-       caption="<i>Base: 187 global southern cities virtual water project across 24 countries") + 
+       title="Global Southern cities virtual water decomposition", subtitle = 'Average (%) - Liters per capita/year') + 
 
   theme(
     legend.position = 'bottom',
     legend.title = element_blank(),
     plot.title.position = "plot",
-    plot.title = element_text(face="bold", margin= margin(b=20)),
+    plot.title = element_text(face="bold", margin= margin(b=5)),
     plot.caption = element_markdown(hjust=0, color="darkgray"),
     plot.caption.position = "plot",
     panel.background = element_blank(),
@@ -128,9 +313,16 @@ ds %>%
     axis.text.x = element_text(color="darkgray"),
     panel.grid.major.x = element_line(color="gray", size=0.1),
     panel.grid.major.y = element_line(color="gray", size=0.1, linetype="dotted")
-  )
+  ) + scale_fill_manual(values = colorvalues)
+  
   
 ggsave("../Figures/A_Graphical_abstract.tiff", width=10, height=6)
   
 ---------------------------------------------------------
 
+### disagrating by income class (LMICs / UMIcs)
+  
+
+  
+### disagrating by continent 
+  
