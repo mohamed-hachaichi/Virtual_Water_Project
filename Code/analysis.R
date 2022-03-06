@@ -3,6 +3,7 @@ library(glue)
 library(ggtext)
 library(showtext)
 library(ggstatsplot)
+library(gapminder)
 
 setwd('Users/Mohamed/Documents/Virtual_Water_Project')
 
@@ -16,9 +17,13 @@ ds <- read_csv('../Output/ds.csv')
 
 class <- read_csv('../Data/index.csv')
 
+ds <- merge(ds, class, by = 'City')
+
 ds <- ds %>% filter(!City %in% c('Colombo', 'Gampaha',
                                  'Kalutara', 'Trincomalee',
                                  'Matara'))
+
+ds <- ds %>% filter(Continent != "Europe")
 
 B <- ds %>% 
   filter(Type == "Bleu water") %>%
@@ -184,7 +189,7 @@ one %>%
        caption="<i>Base: 187 global southern cities virtual water project across 24 countries")+
   theme(
     plot.title.position = "plot",
-    plot.title = element_text(face="bold", margin= margin(b=20)),
+    plot.title = element_text(face="bold", margin= margin(b=0)),
     plot.caption = element_markdown(hjust=0, color="darkgray"),
     plot.caption.position = "plot",
     panel.background = element_blank(),
@@ -231,7 +236,6 @@ ggsave("../Figures/fig_02.tiff", width=10, height=6)
 
 --------------------------------------------
 
-ds <- merge(ds, class, by = 'City')  
     
 ds %>%
   group_by(Sector,Type, Category) %>%
