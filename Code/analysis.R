@@ -23,7 +23,6 @@ ds <- ds %>% filter(!City %in% c('Colombo', 'Gampaha',
                                  'Kalutara', 'Trincomalee',
                                  'Matara'))
 
-ds <- ds %>% filter(Continent != "Europe")
 
 B <- ds %>% 
   filter(Type == "Bleu water") %>%
@@ -84,12 +83,12 @@ ggbetweenstats(
   palette = "nrc_npg",
   xlab = '',
   ylab = 'Virtual water (Liters/year)',
-  title = "Distribution of water footprint across Middle-Income Countries (MICs)",
+  title = "Distribution of water footprint across Global Southern countries",
   outlier.tagging = TRUE,
   outlier.label = City,
 )
 
-ggsave('../Figures/Figure_01.png', dpi = 350, height = 12, width = 18, units = 'cm')
+ggsave('../Figures/Figure_02.png', dpi = 350, height = 12, width = 18, units = 'cm')
 
 p1 <- ggbetweenstats(
   data  = d %>% filter(type == "Grey water"),
@@ -101,7 +100,7 @@ p1 <- ggbetweenstats(
   palette = "nrc_npg",
   xlab = '',
   ylab = 'Grey virtual water (Liters/year)',
-  title = "Distribution of grey water footprint across MICs",
+  title = "Distribution of Grey water footprint",
   outlier.tagging = TRUE,
   outlier.label = City,
 )
@@ -116,14 +115,14 @@ p2 <- ggbetweenstats(
   palette = "nrc_npg",
   xlab = '',
   ylab = 'Blue virtual water (Liters/year)',
-  title = "Distribution of blue water footprint across MICs",
+  title = "Distribution of Blue water footprint",
   outlier.tagging = TRUE,
   outlier.label = City
 )
 
 
 p3 <- ggbetweenstats(
-  data  = d %>% filter(type == "Grey water"),
+  data  = d %>% filter(type == "Grey water", Continent != 'Europe'),
   x     = Continent,
   y     = value,
   type = "p",
@@ -132,11 +131,11 @@ p3 <- ggbetweenstats(
   palette = "nrc_npg",
   xlab = 'Type of water footprint',
   ylab = 'Virtual water (Liters/year)',
-  title = "Distribution of Grey water footprint across MICs"
+  title = "Distribution of Grey water footprint"
 )
 
 p4 <- ggbetweenstats(
-  data  = d %>% filter(type == "Blue water"),
+  data  = d %>% filter(type == "Blue water", Continent != 'Europe'),
   x     = Continent,
   y     = value,
   type = "p",
@@ -145,7 +144,7 @@ p4 <- ggbetweenstats(
   palette = "nrc_npg",
   xlab = 'Type of water footprint',
   ylab = 'Virtual water (Liters/year)',
-  title = "Distribution of Blue water footprint across MICs"
+  title = "Distribution of Blue water footprint"
 )
 
 ## combining the individual plots into a single plot
@@ -157,20 +156,20 @@ combine_plots(
   )
 )
 
-ggsave('../Figures/Figure_02.png', dpi = 350, height = 12, width = 28, units = 'cm')
+ggsave('../Figures/Figure_03.png', dpi = 350, height = 16, width = 30, units = 'cm')
 
 
 ### through continents 
 
 combine_plots(
   list(p3, p4),
-  plotgrid.args = list(nrow = 2),
+  plotgrid.args = list(nrow = 1),
   annotation.args = list(
     title = "Comparison of Grey and Blue water footprints"
   )
 )
 
-ggsave('../Figures/Figure_03.png', dpi = 350, height = 30, width = 16, units = 'cm')
+ggsave('../Figures/Figure_04.png', dpi = 350, height = 16, width = 30, units = 'cm')
 
 
 # make the plot 
@@ -185,8 +184,7 @@ one %>%
   geom_text(aes(label=glue("{percent} liters"), x=bump),
             size=3, show.legend = FALSE) +
   labs(x=NULL, y=NULL,
-       title="Top 20 Global Southern cities virtual water", subtitle = 'Liters per capita/year',
-       caption="<i>Base: 187 global southern cities virtual water project across 24 countries")+
+       title="Top 20 Global Southern cities virtual water", subtitle = 'Liters per capita/year') +
   theme(
     plot.title.position = "plot",
     plot.title = element_text(face="bold", margin= margin(b=0)),
@@ -204,7 +202,7 @@ one %>%
                      labels=c("Grey", "Bleu"))
 
 
-ggsave("../Figures/fig_01.tiff", width=10, height=6)
+ggsave("../Figures/Figure_05.tiff", width=10, height=6)
 
 
 -------------------------------------
@@ -231,13 +229,14 @@ ds %>%
     panel.grid.major.y = element_line(color="gray", size=0.1, linetype="dotted")
   ) + scale_fill_manual(values = colorvalues)
   
-ggsave("../Figures/fig_02.tiff", width=10, height=6)
+ggsave("../Figures/Figure_06.tiff", width=10, height=6)
  
 
 --------------------------------------------
 
     
 ds %>%
+  filter(Continent != "Europe") %>%
   group_by(Sector,Type, Category) %>%
   summarise(value = sum(value)) %>%
   ggplot(aes(x= Type, y = value, fill = Sector)) +
@@ -260,13 +259,14 @@ ds %>%
   ) + scale_fill_manual(values = colorvalues)
 
 
-ggsave("../Figures/figure_05.tiff", width=10, height=6)
+ggsave("../Figures/figure_07.tiff", width=10, height=6)
 
 
 
 -------------------------------------------
   
 ds %>%
+  filter(Continent != 'Europe') %>%
   group_by(Sector,Type, Category, Continent) %>%
   summarise(value = sum(value)) %>%
   ggplot(aes(x= Type, y = value, fill = Sector)) +
@@ -289,7 +289,7 @@ ds %>%
   ) + scale_fill_manual(values = colorvalues)
 
 
-ggsave("../Figures/figure_06.tiff", width=10, height=6)
+ggsave("../Figures/figure_08.tiff", width=10, height=6)
 
 
 
@@ -297,6 +297,7 @@ ggsave("../Figures/figure_06.tiff", width=10, height=6)
 -----------------------------------
   
 ds %>%
+  filter(Continent != 'Europe') %>%
   group_by(Sector, Type) %>%
   summarise(value = mean(value)) %>%
   ggplot(aes(x = Type, y  = value, fill = Sector)) +
@@ -323,10 +324,4 @@ ds %>%
 ggsave("../Figures/A_Graphical_abstract.tiff", width=10, height=6)
   
 ---------------------------------------------------------
-
-### disagrating by income class (LMICs / UMIcs)
-  
-
-  
-### disagrating by continent 
   
