@@ -68,6 +68,7 @@ d <- rbind(g, b)
 
 d <- merge(d, class, by = 'City')
 
+
 ## for reproducibility
 set.seed(123)
 
