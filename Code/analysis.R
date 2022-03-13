@@ -4,6 +4,7 @@ library(ggtext)
 library(showtext)
 library(ggstatsplot)
 library(gapminder)
+library(reshape2)
 
 setwd('Users/Mohamed/Documents/Virtual_Water_Project')
 
@@ -84,7 +85,7 @@ ggbetweenstats(
   palette = "nrc_npg",
   xlab = '',
   ylab = 'Virtual water (Liters/year)',
-  title = "Distribution of water footprint across Global Southern countries",
+  title = "Distribution of the water footprints across Global Southern countries",
   outlier.tagging = TRUE,
   outlier.label = City,
 )
@@ -207,7 +208,16 @@ ggsave("../Figures/Figure_05.tiff", width=10, height=6)
 
 
 -------------------------------------
+
+ds %>%
+  filter(City %in% c(one$City)) %>%
+  group_by(City, Sector, Type) %>%
+  summarise(value = sum(value)) %>%
+  filter(City == "Beijing" & Type == "Grey water") %>%
+  mutate(percent = (value / 622.8432) * 100) %>%
+  select(City, Sector, percent)
   
+    
 ds %>%
   filter(City %in% c(one$City)) %>%
   group_by(City, Sector, Type) %>%
