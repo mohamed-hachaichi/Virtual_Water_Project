@@ -272,7 +272,35 @@ ds %>%
 
 ggsave("../Figures/figure_07.tiff", width=10, height=6)
 
+----------------------------
 
+colues <- c('#E5EBEA', '#DBD9DB', '#B098A4', '#747572')  
+   
+ds %>%
+  filter(Continent != "Europe") %>%
+  group_by(Indus_Sector,Type, Category) %>%
+  summarise(value = sum(value)) %>% 
+  ggplot(aes(x= Type, y = value, fill = Indus_Sector)) +
+  labs(x = '', y = '') +
+  geom_bar(stat = 'identity', position = 'fill') +
+  facet_grid(~Category) + 
+  coord_flip() +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_blank(),
+    plot.title.position = "plot",
+    plot.title = element_text(face="bold", margin= margin(b=5)),
+    plot.caption = element_markdown(hjust=0, color="darkgray"),
+    plot.caption.position = "plot",
+    panel.background = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(color="darkgray"),
+    panel.grid.major.x = element_line(color="gray", size=0.1),
+    panel.grid.major.y = element_line(color="gray", size=0.1, linetype="dotted")
+  ) + scale_fill_manual(values = colues)
+
+  
+ggsave("../Figures/figure_08.tiff", width=10, height=6)
 
 -------------------------------------------
   
@@ -300,9 +328,7 @@ ds %>%
   ) + scale_fill_manual(values = colorvalues)
 
 
-ggsave("../Figures/figure_08.tiff", width=10, height=6)
-
-
+ggsave("../Figures/figure_09.tiff", width=10, height=6)
 
 
 -----------------------------------
