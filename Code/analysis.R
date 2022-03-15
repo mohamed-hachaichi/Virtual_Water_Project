@@ -245,6 +245,9 @@ ggsave("../Figures/Figure_06.tiff", width=10, height=6)
 
 --------------------------------------------
 
+  
+  
+  
     
 ds %>%
   filter(Continent != "Europe") %>%

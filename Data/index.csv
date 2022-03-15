@@ -2,7 +2,7 @@ City,Category,Country iso3,Continent
 Abidjan,LMIC,CIV,Africa
 Addu,UMIC,MDV,Asia
 Agneby-Tiassa,LMIC,CIV,Africa
-Aguascalientes,UMIC,MEX,Latine America
+Aguascalientes,UMIC,MEX,Latin America
 Algiers,UMIC,DZA,Africa
 Amparai,UMIC,LKA,Asia
 Anhui,UMIC,CHN,Asia
@@ -11,8 +11,8 @@ Atolls,UMIC,MDV,Asia
 Badulla,UMIC,LKA,Asia
 Bafing,LMIC,CIV,Africa
 Bagoue,LMIC,CIV,Africa
-Baja California Sur,UMIC,MEX,Latine America
-Baja California,UMIC,MEX,Latine America
+Baja California Sur,UMIC,MEX,Latin America
+Baja California,UMIC,MEX,Latin America
 Barishal,LMIC,BGD,Asia
 Batticaloa,UMIC,LKA,Asia
 Beijing,UMIC,CHN,Asia
@@ -22,21 +22,21 @@ Bere,LMIC,CIV,Africa
 Boukani,LMIC,CIV,Africa
 Byo,LMIC,ZWE,Africa
 Cairo,LMIC,EGY,Africa
-Campeche,UMIC,MEX,Latine America
+Campeche,UMIC,MEX,Latin America
 Cape Town,UMIC,ZAF,Africa
 Casablanca,LMIC,MAR,Africa
 Cavally,LMIC,CIV,Africa
-Chiapas,UMIC,MEX,Latine America
-Chihuahua,UMIC,MEX,Latine America
+Chiapas,UMIC,MEX,Latin America
+Chihuahua,UMIC,MEX,Latin America
 Chittagong,LMIC,BGD,Asia
 Chongqing,UMIC,CHN,Asia
-Coahuila de Zaragoza,UMIC,MEX,Latine America
-Colima,UMIC,MEX,Latine America
+Coahuila de Zaragoza,UMIC,MEX,Latin America
+Colima,UMIC,MEX,Latin America
 Colombo,UMIC,LKA,Asia
-Cuidad de Mexico,UMIC,MEX,Latine America
+Cuidad de Mexico,UMIC,MEX,Latin America
 Dhaka,LMIC,BGD,Asia
 Diber,UMIC,ALB,Europe
-Durango,UMIC,MEX,Latine America
+Durango,UMIC,MEX,Latin America
 Durres,UMIC,ALB,Europe
 Elbasan,UMIC,ALB,Europe
 Erongo,UMIC,NAM,Africa
@@ -56,7 +56,7 @@ Gnaviyani,UMIC,MDV,Asia
 Goh,LMIC,CIV,Africa
 Gontougo,LMIC,CIV,Africa
 Grand-Ponts,LMIC,CIV,Africa
-Guanajuato,UMIC,MEX,Latine America
+Guanajuato,UMIC,MEX,Latin America
 Guangdong,UMIC,CHN,Asia
 Guangxi,UMIC,CHN,Asia
 Guelmim,LMIC,MAR,Africa
@@ -72,7 +72,7 @@ Haut-Sassandra,LMIC,CIV,Africa
 Hebei,UMIC,CHN,Asia
 Heilongjiang,UMIC,CHN,Asia
 Henan,UMIC,CHN,Asia
-Hidalgo,UMIC,MEX,Latine America
+Hidalgo,UMIC,MEX,Latin America
 Hre,LMIC,ZWE,Africa
 Hubei,UMIC,CHN,Asia
 Hunan,UMIC,CHN,Asia
@@ -98,7 +98,7 @@ Kunene,UMIC,NAM,Africa
 Kurunegala,UMIC,LKA,Asia
 La Me,LMIC,CIV,Africa
 Laayoun,LMIC,MAR,Africa
-Leon,UMIC,MEX,Latine America
+Leon,UMIC,MEX,Latin America
 Lezhe,UMIC,ALB,Europe
 Liaoning,UMIC,CHN,Asia
 Limpopo,UMIC,ZAF,Africa
@@ -117,73 +117,73 @@ Mat-South,LMIC,ZWE,Africa
 Matale,UMIC,LKA,Asia
 Matara,UMIC,LKA,Asia
 Mavingo,LMIC,ZWE,Africa
-Melchor Ocampo,UMIC,MEX,Latine America
+Melchor Ocampo,UMIC,MEX,Latin America
 Mid-lands,LMIC,ZWE,Africa
 Monaragala,UMIC,LKA,Asia
 Montenegro,UMIC,MNE,Europe
-Morelos,UMIC,MEX,Latine America
+Morelos,UMIC,MEX,Latin America
 Moronou,LMIC,CIV,Africa
 Mpumalang,UMIC,ZAF,Africa
 Mulakatholhu,UMIC,MDV,Asia
 Mullaitivu,UMIC,LKA,Asia
 N-zi,LMIC,CIV,Africa
 Nawa,LMIC,CIV,Africa
-Nayarit,UMIC,MEX,Latine America
+Nayarit,UMIC,MEX,Latin America
 Ningxia,UMIC,CHN,Asia
 Nuwar Eliya,UMIC,LKA,Asia
-Oaxaca,UMIC,MEX,Latine America
-Ojuelos de Jalisco,UMIC,MEX,Latine America
+Oaxaca,UMIC,MEX,Latin America
+Ojuelos de Jalisco,UMIC,MEX,Latin America
 Omaheke,UMIC,NAM,Africa
 Omusti,UMIC,NAM,Africa
 Oriental,LMIC,MAR,Africa
 Oshana,UMIC,NAM,Africa
 Oshikoto,UMIC,NAM,Africa
 Otjiwarongo,UMIC,NAM,Africa
-Pago Pago,UMIC,ASM,Latine America
+Pago Pago,UMIC,ASM,Latin America
 Polonnaruwa,UMIC,LKA,Asia
 Poro,LMIC,CIV,Africa
-Puebla,UMIC,MEX,Latine America
+Puebla,UMIC,MEX,Latin America
 Puttalama,UMIC,LKA,Asia
 Qinghai,UMIC,CHN,Asia
-Queretaro,UMIC,MEX,Latine America
-Quintana Roo,UMIC,MEX,Latine America
+Queretaro,UMIC,MEX,Latin America
+Quintana Roo,UMIC,MEX,Latin America
 Rajshahi,LMIC,BGD,Asia
 Rangpur,LMIC,BGD,Asia
 Ratnapura,UMIC,LKA,Asia
-San Jose,UMIC,CRI,Latine America
-San Luis Potosi,UMIC,MEX,Latine America
+San Jose,UMIC,CRI,Latin America
+San Luis Potosi,UMIC,MEX,Latin America
 San-Pedro,LMIC,CIV,Africa
 Shaanxi,UMIC,CHN,Asia
 Shandong,UMIC,CHN,Asia
 Shanxi,UMIC,CHN,Asia
 Shkoder,UMIC,ALB,Europe
 Sichuan,UMIC,CHN,Asia
-Sinaloa,UMIC,MEX,Latine America
-Sonora,UMIC,MEX,Latine America
+Sinaloa,UMIC,MEX,Latin America
+Sonora,UMIC,MEX,Latin America
 Souss,LMIC,TUN,Africa
 Sud-Comoe,LMIC,CIV,Africa
 Sylhet,LMIC,BGD,Asia
-Tabasco,UMIC,MEX,Latine America
+Tabasco,UMIC,MEX,Latin America
 Tafilalet,LMIC,MAR,Africa
-Tamaumipas,UMIC,MEX,Latine America
+Tamaumipas,UMIC,MEX,Latin America
 Tangier,LMIC,MAR,Africa
 Tbilisi,UMIC,GEO,Europe
 Tchologo,LMIC,CIV,Africa
 Tianjin,UMIC,CHN,Asia
 Tibet,UMIC,CHN,Asia
 Tirana,UMIC,ALB,Europe
-Tlaxcala,UMIC,MEX,Latine America
+Tlaxcala,UMIC,MEX,Latin America
 Tonkpi,LMIC,CIV,Africa
 Trincomalee,UMIC,LKA,Asia
 Tunis,LMIC,TUN,Africa
 Vavuniya,UMIC,LKA,Asia
-Veracruz,UMIC,MEX,Latine America
-Vicente Guerrero,UMIC,MEX,Latine America
+Veracruz,UMIC,MEX,Latin America
+Vicente Guerrero,UMIC,MEX,Latin America
 Vlore,UMIC,ALB,Europe 
 Worodougou,LMIC,CIV,Africa
 Xinjiang,UMIC,CHN,Asia
 Yamoussoukro,LMIC,CIV,Africa
-Yucatan,UMIC,MEX,Latine America
+Yucatan,UMIC,MEX,Latin America
 Yunnan,UMIC,CHN,Asia
-Zacatlan,UMIC,MEX,Latine America
+Zacatlan,UMIC,MEX,Latin America
 Zambezi,UMIC,NAM,Africa
