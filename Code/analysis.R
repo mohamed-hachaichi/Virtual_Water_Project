@@ -244,10 +244,6 @@ ggsave("../Figures/Figure_06.tiff", width=10, height=6)
  
 
 --------------------------------------------
-
-  
-  
-  
     
 ds %>%
   filter(Continent != "Europe") %>%
@@ -270,7 +266,8 @@ ds %>%
     axis.text.x = element_text(color="darkgray"),
     panel.grid.major.x = element_line(color="gray", size=0.1),
     panel.grid.major.y = element_line(color="gray", size=0.1, linetype="dotted")
-  ) + scale_fill_manual(values = colorvalues)
+  ) + scale_fill_manual(values = colorvalues) +
+    scale_y_continuous(labels = scales::percent)
 
 
 ggsave("../Figures/figure_07.tiff", width=10, height=6)
