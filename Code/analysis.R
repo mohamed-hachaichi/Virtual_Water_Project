@@ -278,12 +278,12 @@ colues <- c('#E5EBEA', '#DBD9DB', '#B098A4', '#747572')
    
 ds %>%
   filter(Continent != "Europe") %>%
-  group_by(Indus_Sector,Type, Category) %>%
-  summarise(value = sum(value)) %>% 
+  group_by(Indus_Sector,Type, Category, Sector) %>%
+  summarise(value = sum(value)) %>%
   ggplot(aes(x= Type, y = value, fill = Indus_Sector)) +
   labs(x = '', y = '') +
   geom_bar(stat = 'identity', position = 'fill') +
-  facet_grid(~Category) + 
+  facet_wrap(Category ~ Sector) + 
   coord_flip() +
   theme(
     legend.position = 'bottom',
@@ -300,7 +300,7 @@ ds %>%
   ) + scale_fill_manual(values = colues)
 
   
-ggsave("../Figures/figure_08.tiff", width=10, height=6)
+ggsave("../Figures/figure_08.tiff", width=15, height=8)
 
 -------------------------------------------
   
