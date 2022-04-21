@@ -209,14 +209,6 @@ ggsave("../Figures/Figure_05.tiff", width=10, height=6)
 
 -------------------------------------
 
-ds %>%
-  filter(City %in% c(one$City)) %>%
-  group_by(City, Sector, Type) %>%
-  summarise(value = sum(value)) %>%
-  filter(City == "Beijing" & Type == "Grey water") %>%
-  mutate(percent = (value / 622.8432) * 100) %>%
-  select(City, Sector, percent)
-  
     
 ds %>%
   filter(City %in% c(one$City)) %>%
@@ -278,14 +270,16 @@ colues <- c('#E5EBEA', '#DBD9DB', '#B098A4', '#747572')
    
 ds %>%
   filter(Continent != "Europe") %>%
-  group_by(Indus_Sector,Type, Category, Sector) %>%
+  group_by(Indus_Sector,Type, Category, Sector, Continent) %>%
   summarise(value = sum(value)) %>%
-  ggplot(aes(x= Type, y = value, fill = Indus_Sector)) +
+  ggplot(aes(x= Type, y = value, fill = Sector)) +
   labs(x = '', y = '') +
   geom_bar(stat = 'identity', position = 'fill') +
-  facet_wrap(Category ~ Sector) + 
+  facet_wrap(Category ~ Indus_Sector, ncol = 4) + 
   coord_flip() +
   theme(
+    strip.background = element_rect(colour="black", fill="white", 
+                                    size=1.5, linetype="solid"),
     legend.position = 'bottom',
     legend.title = element_blank(),
     plot.title.position = "plot",
@@ -297,10 +291,11 @@ ds %>%
     axis.text.x = element_text(color="darkgray"),
     panel.grid.major.x = element_line(color="gray", size=0.1),
     panel.grid.major.y = element_line(color="gray", size=0.1, linetype="dotted")
-  ) + scale_fill_manual(values = colues)
+  ) + scale_fill_manual(values = colorvalues) +
+  scale_y_continuous(labels = scales::percent)
 
   
-ggsave("../Figures/figure_08.tiff", width=15, height=8)
+ggsave("../Figures/figure_08.tiff", width=10, height=6)
 
 -------------------------------------------
   
@@ -325,7 +320,8 @@ ds %>%
     axis.text.x = element_text(color="darkgray"),
     panel.grid.major.x = element_line(color="gray", size=0.1),
     panel.grid.major.y = element_line(color="gray", size=0.1, linetype="dotted")
-  ) + scale_fill_manual(values = colorvalues)
+  ) + scale_fill_manual(values = colorvalues)+
+  scale_y_continuous(labels = scales::percent)
 
 
 ggsave("../Figures/figure_09.tiff", width=10, height=6)
@@ -355,7 +351,8 @@ ds %>%
     axis.text.x = element_text(color="darkgray"),
     panel.grid.major.x = element_line(color="gray", size=0.1),
     panel.grid.major.y = element_line(color="gray", size=0.1, linetype="dotted")
-  ) + scale_fill_manual(values = colorvalues)
+  ) + scale_fill_manual(values = colorvalues)+
+  scale_y_continuous(labels = scales::percent)
   
   
 ggsave("../Figures/A_Graphical_abstract.tiff", width=10, height=6)
