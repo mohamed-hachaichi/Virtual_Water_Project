@@ -174,6 +174,22 @@ combine_plots(
 ggsave('../Figures/Figure_04.png', dpi = 350, height = 16, width = 30, units = 'cm')
 
 
+## make the boxplots 
+
+d %>%
+  filter(Continent != 'Europe') %>%
+  ggplot(aes(x=type, y= value, fill = type)) + 
+  theme_minimal() +
+  geom_boxplot(alpha = .5) +
+  geom_jitter(shape=16, position=position_jitter(0.2), alpha = .5) +
+  labs(x= "", y = "") +
+  facet_grid(~Continent, scale = "free") +
+  scale_fill_manual(values=c("#00afb9", "#e5e5e5")) +
+  coord_flip()
+
+ggsave('../Figures/Figure_map.png', dpi = 350, height = 16, width = 30, units = 'cm')
+
+
 # make the plot 
 
 one %>% 
@@ -358,4 +374,3 @@ ds %>%
 ggsave("../Figures/A_Graphical_abstract.tiff", width=10, height=6)
   
   
--------------------
