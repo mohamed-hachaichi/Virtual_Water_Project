@@ -176,15 +176,20 @@ ggsave('../Figures/Figure_04.png', dpi = 350, height = 16, width = 30, units = '
 
 ## make the boxplots 
 
+library(ggdist)
+
+
 d %>%
   filter(Continent != 'Europe') %>%
   ggplot(aes(x=type, y= value, fill = type)) + 
-  theme_minimal() +
-  geom_boxplot(alpha = .5) +
+  theme_minimal(base_size = 11) +
+  geom_violin(alpha = .5) +
   geom_jitter(shape=16, position=position_jitter(0.2), alpha = .5) +
-  labs(x= "", y = "") +
+  geom_boxplot(notch = TRUE,  outlier.size = -1, color="black",lwd=1.2, alpha = 0.5)+
+  labs(y= "Liters per capita / year", x = "") +
   facet_grid(~Continent, scale = "free") +
   scale_fill_manual(values=c("#00afb9", "#e5e5e5")) +
+  theme(legend.title = element_blank()) +
   coord_flip()
 
 ggsave('../Figures/Figure_map.png', dpi = 350, height = 16, width = 30, units = 'cm')
