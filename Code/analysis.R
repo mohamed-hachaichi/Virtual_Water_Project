@@ -238,8 +238,7 @@ ds %>%
   ggplot(aes(x = value, y = City, fill = Sector)) +
   geom_bar(stat = 'identity', position = 'stack') +
   labs(x=NULL, y=NULL,
-       title="Top 20 Global Southern cities virtual water decomosition by major consumption categories", subtitle = 'Liters per capita/year',
-       caption="<i>Base: 187 global southern cities virtual water project across 24 countries") +
+       title="Top 20 Global Southern cities virtual water decomosition by major consumption categories", subtitle = 'Liters per capita/year') +
   facet_grid(~Type, scale = 'free') +
   theme(
     plot.title.position = "plot",
@@ -328,7 +327,7 @@ ds %>%
   labs(x = '', y = '') +
   geom_bar(stat = 'identity', position = 'fill') +
   facet_grid(~Continent) + 
-  coord_flip() +
+#  coord_flip() +
   theme(
     legend.position = 'bottom',
     legend.title = element_blank(),
